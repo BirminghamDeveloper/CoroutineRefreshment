@@ -17,9 +17,13 @@ class MainActivity : AppCompatActivity() {
         myTextView = findViewById<TextView?>(R.id.textId)
 
         Log.d("MainActivity", "i am in Main Thread: ")
-        GlobalScope.launch(Dispatchers.Default){
-            printMyTextAfterDelay("Love it")
+
+        runBlocking {
+
+                printMyTextAfterDelay("Love it")
+
         }
+        Log.d("MainActivity", "i am Back to the Main Thread: ")
         Log.d("MainActivity", "i am Back to the Main Thread: ")
     }
 
