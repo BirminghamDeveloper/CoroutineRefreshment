@@ -30,7 +30,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     suspend fun printMyTextAfterDelay(myText: String){
-            delay(2000)
-            Log.d("MainActivity", "$myText")
+            GlobalScope.launch {
+                delay(2000)
+                Log.d("MainActivity", "$myText")
+            }
     }
 }
