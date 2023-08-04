@@ -21,16 +21,12 @@ class MainActivity : AppCompatActivity() {
         runBlocking {
 
                 printMyTextAfterDelay("Love it")
-
         }
-        Log.d("MainActivity", "i am Back to the Main Thread: ")
         Log.d("MainActivity", "i am Back to the Main Thread: ")
     }
 
     suspend fun printMyTextAfterDelay(myText: String){
-        GlobalScope.launch(Dispatchers.IO) {
             delay(2000)
             Log.d("MainActivity", "i am in IO Thread: ")
-        }
     }
 }
