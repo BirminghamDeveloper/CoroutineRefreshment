@@ -16,17 +16,21 @@ class MainActivity : AppCompatActivity() {
 
         myTextView = findViewById<TextView?>(R.id.textId)
 
-        Log.d("MainActivity", "i am in Main Thread: ")
+//        Log.d("MainActivity", "i am in Main Thread: ")
 
-        runBlocking {
+        GlobalScope.launch {
+            printMyTextAfterDelay("Hashi is Rich")
+            printMyTextAfterDelay("and Handsome")
+        }
+        /*runBlocking {
 
                 printMyTextAfterDelay("Love it")
-        }
-        Log.d("MainActivity", "i am Back to the Main Thread: ")
+        }*/
+//        Log.d("MainActivity", "i am Back to the Main Thread: ")
     }
 
     suspend fun printMyTextAfterDelay(myText: String){
             delay(2000)
-            Log.d("MainActivity", "i am in IO Thread: ")
+            Log.d("MainActivity", "$myText")
     }
 }
