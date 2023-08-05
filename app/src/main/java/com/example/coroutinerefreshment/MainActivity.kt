@@ -16,31 +16,26 @@ class MainActivity : AppCompatActivity() {
 
         myTextView = findViewById<TextView?>(R.id.textId)
 
-//        Log.d("MainActivity", "i am in Main Thread: ")
-
         GlobalScope.launch {
-            /* GlobalScope.launch {
-                 printMyTextAfterDelay("Hashi is Rich")
-             }
-             GlobalScope.launch {
-                 printMyTextAfterDelay("and Handsome")
-             }*/
+            val dataUser = getUserFromNetwork()
+            val localUser = getUserFromDatabase()
 
-            printMyTextAfterDelay("Hashi is Rich")
-            printMyTextAfterDelay("and Handsome")
-
+            if (dataUser == localUser){
+                Log.d("MainActivity", "Equal")
+            }else{
+                Log.d("MainActivity", "Not Equal: ")
+            }
         }
-        /*runBlocking {
 
-                printMyTextAfterDelay("Love it")
-        }*/
-//        Log.d("MainActivity", "i am Back to the Main Thread: ")
     }
 
-    suspend fun printMyTextAfterDelay(myText: String) {
-        withContext(Dispatchers.IO) {
-            delay(2000)
-            Log.d("MainActivity", "$myText")
-        }
+    private suspend fun getUserFromNetwork(): String {
+        delay(2000)
+        return "Mustafa"
+    }
+
+    private suspend fun getUserFromDatabase(): String{
+        delay(2000)
+        return "Hashi"
     }
 }
