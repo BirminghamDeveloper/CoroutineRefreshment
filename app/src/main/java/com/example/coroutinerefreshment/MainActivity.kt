@@ -19,8 +19,16 @@ class MainActivity : AppCompatActivity() {
 //        Log.d("MainActivity", "i am in Main Thread: ")
 
         GlobalScope.launch {
+            /* GlobalScope.launch {
+                 printMyTextAfterDelay("Hashi is Rich")
+             }
+             GlobalScope.launch {
+                 printMyTextAfterDelay("and Handsome")
+             }*/
+
             printMyTextAfterDelay("Hashi is Rich")
             printMyTextAfterDelay("and Handsome")
+
         }
         /*runBlocking {
 
@@ -29,10 +37,10 @@ class MainActivity : AppCompatActivity() {
 //        Log.d("MainActivity", "i am Back to the Main Thread: ")
     }
 
-    suspend fun printMyTextAfterDelay(myText: String){
-        GlobalScope.launch {
-                delay(2000)
-                Log.d("MainActivity", "$myText")
-            }
+    suspend fun printMyTextAfterDelay(myText: String) {
+        withContext(Dispatchers.IO) {
+            delay(2000)
+            Log.d("MainActivity", "$myText")
+        }
     }
 }
