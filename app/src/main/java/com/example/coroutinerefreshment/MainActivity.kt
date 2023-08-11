@@ -5,10 +5,12 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.TextView
 import kotlinx.coroutines.*
+import kotlin.system.measureTimeMillis
+import kotlin.time.measureTime
 
 class MainActivity : AppCompatActivity() {
 
-    // Launch Example
+    // Async/Await Example
     lateinit var myTextView: TextView
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -18,18 +20,19 @@ class MainActivity : AppCompatActivity() {
         myTextView = findViewById<TextView?>(R.id.textId)
 
         GlobalScope.launch {
-            var dataUser: String? = null
-            var localUser: String? = null
-            launch { dataUser = getUserFromNetwork() }
-            launch { localUser = getUserFromDatabase() }
+            // to trace the Time
+            val time = measureTimeMillis {
+                val dataUser = async { getUserFromNetwork() }
+                val localUser = async { getUserFromDatabase() }
 
-            if (dataUser == localUser){
-                Log.d("MainActivity", "Equal")
-            }else{
-                Log.d("MainActivity", "Not Equal: ")
+                if (dataUser.await() == localUser.await()) {
+                    Log.d("MainActivity", "Equal")
+                } else {
+                    Log.d("MainActivity", "Not Equal: ")
+                }
             }
+            Log.d("MainActivity", "Time Consumed: $time")
         }
-
     }
 
     private suspend fun getUserFromNetwork(): String {
@@ -37,8 +40,8 @@ class MainActivity : AppCompatActivity() {
         return "Mustafa"
     }
 
-    private suspend fun getUserFromDatabase(): String{
-        delay(2000)
+    private suspend fun getUserFromDatabase(): String {
+        delay(3000)
         return "Mustafa"
     }
 }
