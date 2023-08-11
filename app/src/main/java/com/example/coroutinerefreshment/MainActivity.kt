@@ -8,6 +8,7 @@ import kotlinx.coroutines.*
 
 class MainActivity : AppCompatActivity() {
 
+    // Launch Example
     lateinit var myTextView: TextView
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -17,8 +18,10 @@ class MainActivity : AppCompatActivity() {
         myTextView = findViewById<TextView?>(R.id.textId)
 
         GlobalScope.launch {
-            val dataUser = getUserFromNetwork()
-            val localUser = getUserFromDatabase()
+            var dataUser: String? = null
+            var localUser: String? = null
+            launch { dataUser = getUserFromNetwork() }
+            launch { localUser = getUserFromDatabase() }
 
             if (dataUser == localUser){
                 Log.d("MainActivity", "Equal")
@@ -36,6 +39,6 @@ class MainActivity : AppCompatActivity() {
 
     private suspend fun getUserFromDatabase(): String{
         delay(2000)
-        return "Hashi"
+        return "Mustafa"
     }
 }
