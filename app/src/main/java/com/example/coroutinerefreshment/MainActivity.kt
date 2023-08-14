@@ -8,9 +8,10 @@ import kotlinx.coroutines.*
 import kotlin.system.measureTimeMillis
 import kotlin.time.measureTime
 
+private const val TAG = "MainActivity"
 class MainActivity : AppCompatActivity() {
 
-    // Async/Await Example
+    // Jobs & Structured Concurrency Example
     lateinit var myTextView: TextView
     override fun onCreate(savedInstanceState: Bundle?) {
 
