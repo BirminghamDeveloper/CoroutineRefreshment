@@ -11,6 +11,7 @@ import kotlin.time.measureTime
 private const val TAG = "MainActivity"
 class MainActivity : AppCompatActivity() {
 
+    private val parentJob: Job = Job()
     // Jobs & Structured Concurrency Example
     lateinit var myTextView: TextView
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,11 +21,15 @@ class MainActivity : AppCompatActivity() {
 
         myTextView = findViewById<TextView?>(R.id.textId)
 
-        // when assign job to launch it wont affected as launch will return Job type anyway
+
+        val coroutineScope: CoroutineScope = CoroutineScope(Dispatchers.IO+ parentJob)
+        coroutineScope.launch {  }
+
         val job: Job = GlobalScope.launch {
             launch { getUserFromNetwork() }
             launch { getUserFromDatabase() }
         }
+
     }
 
     private suspend fun getUserFromNetwork(): String {
@@ -35,5 +40,10 @@ class MainActivity : AppCompatActivity() {
     private suspend fun getUserFromDatabase(): String {
         delay(3000)
         return "Mustafa"
+    }
+
+    override fun onStop() {
+        super.onStop()
+        parentJob.cancel()
     }
 }
