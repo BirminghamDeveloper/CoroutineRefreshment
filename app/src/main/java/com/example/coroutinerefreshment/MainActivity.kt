@@ -20,19 +20,10 @@ class MainActivity : AppCompatActivity() {
 
         myTextView = findViewById<TextView?>(R.id.textId)
 
-        GlobalScope.launch {
-            // to trace the Time
-            val time = measureTimeMillis {
-                val dataUser = async { getUserFromNetwork() }
-                val localUser = async { getUserFromDatabase() }
-
-                if (dataUser.await() == localUser.await()) {
-                    Log.d("MainActivity", "Equal")
-                } else {
-                    Log.d("MainActivity", "Not Equal: ")
-                }
-            }
-            Log.d("MainActivity", "Time Consumed: $time")
+        // when assign job to launch it wont affected as launch will return Job type anyway
+        val job: Job = GlobalScope.launch {
+            launch { getUserFromNetwork() }
+            launch { getUserFromDatabase() }
         }
     }
 
