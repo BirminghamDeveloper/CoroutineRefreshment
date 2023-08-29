@@ -28,6 +28,7 @@ class MainActivity : AppCompatActivity() {
         val job: Job = GlobalScope.launch {
             launch { getUserFromNetwork() }
             launch { getUserFromDatabase() }
+            
         }
 
     }
