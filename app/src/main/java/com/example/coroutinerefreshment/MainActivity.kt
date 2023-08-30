@@ -20,6 +20,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         myTextView = findViewById<TextView?>(R.id.textId)
+        val string: String = "Testing"
+        println(string[0])
 
 
         val coroutineScope: CoroutineScope = CoroutineScope(Dispatchers.IO+ parentJob)
