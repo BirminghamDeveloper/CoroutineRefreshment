@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.TextView
 import kotlinx.coroutines.*
+import java.io.IOException
 import kotlin.system.measureTimeMillis
 import kotlin.time.measureTime
 
@@ -20,8 +21,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         myTextView = findViewById<TextView?>(R.id.textId)
-        val string: String = "Testing"
-        println(string[0])
+        
 
 
         val coroutineScope: CoroutineScope = CoroutineScope(Dispatchers.IO+ parentJob)
@@ -35,6 +35,10 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    @Throws(IOException::class)
+    override fun intercept(chain: Interceptor.Chain): Response{
+
+    }
     private suspend fun getUserFromNetwork(): String {
         delay(2000)
         return "Mustafa"
